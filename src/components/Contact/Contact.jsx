@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+import css from './Contact.module.css';
 
 export default function Contact({ contact, deleteItem }) {
   return (
-    <li style={{ width: '275px', display: 'flex' }} id={contact.id}>
+    <li className={css.contact} id={contact.id}>
       {contact.name}: {contact.number}
       <button
         onClick={() => {
           deleteItem(contact.id);
         }}
-        style={{ marginLeft: 'auto' }}
+        className={css.btnDelete}
         type="button"
       >
         Delete

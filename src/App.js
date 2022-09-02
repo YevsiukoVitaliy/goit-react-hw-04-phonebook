@@ -1,9 +1,9 @@
-import './App.css';
 import ContactForm from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from './components/ContactList/ContactList';
 import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import css from './App.module.css';
 
 export default function App() {
   const initialState = [
@@ -12,13 +12,13 @@ export default function App() {
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ];
-  const [contacts, setcontacts] = useState(() => {
+  const [contacts, setContacts] = useState(() => {
     return JSON.parse(localStorage.getItem('contacts')) ?? initialState;
   });
-  const [filter, setfilter] = useState('');
+  const [filter, setFilter] = useState('');
 
   const handleFilterTextChange = filterText => {
-    setfilter(filterText.target.value);
+    setFilter(filterText.target.value);
   };
 
   const handleSubmit = (name, number) => {
@@ -29,11 +29,11 @@ export default function App() {
     ) {
       return alert(`dssd`);
     }
-    setcontacts([...contacts, { name, number, id: nanoid() }]);
+    setContacts([...contacts, { name, number, id: nanoid() }]);
   };
 
   const deleteItem = id => {
-    setcontacts(contacts.filter(el => el.id !== id));
+    setContacts(contacts.filter(el => el.id !== id));
   };
 
   useEffect(() => {
@@ -42,15 +42,20 @@ export default function App() {
 
   return (
     <>
-      <h1>Phonebook</h1>
-      <ContactForm onHandleSubmit={handleSubmit} />
-      <h2>Contacts</h2>
-      <Filter filter={filter} handleFilterTextChange={handleFilterTextChange} />
-      <ContactList
-        contacts={contacts}
-        filter={filter}
-        deleteItem={deleteItem}
-      />
+      <div className={css.App}>
+        <h1>Phonebook</h1>
+        <ContactForm onHandleSubmit={handleSubmit} />
+        <h2>Contacts</h2>
+        <Filter
+          filter={filter}
+          handleFilterTextChange={handleFilterTextChange}
+        />
+        <ContactList
+          contacts={contacts}
+          filter={filter}
+          deleteItem={deleteItem}
+        />
+      </div>
     </>
   );
 }
